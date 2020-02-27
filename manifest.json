@@ -6,7 +6,9 @@
   "content_scripts" : [
     {
       "matches": [
-        "<all_urls>"
+        "*://*.bbbycaapp.com/*",
+        "*://*.bbbabyapp.com/*",
+        "*://*.bbbyapp.com/*"
       ],
       "js": ["popup.js"],
       "run_at": "document_idle"

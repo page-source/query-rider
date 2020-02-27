@@ -1,3 +1,9 @@
+function addParameterToURL(param) {
+  let _url = location.href;
+  _url += (_url.split('?')[1] ? '&':'?') + param;
+  return _url;
+}
+
 function reloadPage(){
   if(chrome.storage == null || chrome.storage == 'undefined') {
     console.log('storage doesnt exist')
@@ -25,7 +31,7 @@ function reloadPage(){
 function addQueryStringsToURL(param, URL) {
   let _url = URL;
   _url += (_url.split('?')[1] ? '&':'?') + param;
-  return _url;
+  return _url+"=true";
 }
 
 function storeCheckedValues() {
