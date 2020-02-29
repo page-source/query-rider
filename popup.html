@@ -13,18 +13,11 @@
   <script language='javascript' src='popup.js'></script>
 </head>
 <body>
-  <ul>
-    <li>Append Query Strings</li>
-    <li class="inline-item border1">
-      <p class="line-item-text borderRight1">no-cache</p>
-      <span class="line-item borderRight1"> <input class="checkbox" type="checkbox" value="no-cache"></span>
-      <span class="line-item"><button class="reloadBtn">Reload</button></span>
-    </li>
-    <li class="inline-item border1">
-      <p class="line-item-text borderRight1">no-bucket</p>
-      <span class="line-item borderRight1"> <input class="checkbox" type="checkbox" value="no-bucket"></span>
-      <span class="line-item"><button class="reloadBtn">Reload</button></span>
-    </li>
-  </ul>
+    <h4>Append Query Strings</h4>
+    <p class="addNewQueryString">Add New Query String</p>
+    <input type="text" id="newQueryStringKey" name="newQueryStringKey" placeholder="New Param">
+    <input type="text" id="newQueryStringValue" name="newQueryStringValue" placeholder="Value">
+    <button id="addNewButton">Add Param</button>
+  <ul id="paramList"></ul>
   </body>
 </html>

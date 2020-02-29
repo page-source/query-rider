@@ -1,12 +1,12 @@
 body {
-  width: 579px;
+  width: 380px;
   border: 2px solid grey;
   margin: 0;
 }
 ul {
   list-style-type:none;
   margin-left:-20px;
-  width:200px;
+  width:300px;
 }
 ul li {
   height:30px;
