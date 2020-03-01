@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Add Query Strings in URL",
+    "description": "Append Query Parameters in URL"
+  },
+  "appDesc": {
+    "message": "This app adds some pre-defined query parameters in URL.",
+    "description":"It is important to reduce manual work and automate it. Add query params in URL in few clicks in the URL."
+  }
+}

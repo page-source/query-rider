@@ -1,12 +1,15 @@
 {
   "manifest_version": 2,
-  "name": "Query-String",
+  "name": "Query-String-BBB",
   "description": "Append Query Parameters in URL",
   "version":"1.0.0",
+  "default_locale": "en",
   "content_scripts" : [
     {
       "matches": [
-        "<all_urls>"
+        "*://*.bbbycaapp.com/*",
+        "*://*.bbbabyapp.com/*",
+        "*://*.bbbyapp.com/*"
       ],
       "js": ["popup.js"],
       "run_at": "document_idle"
@@ -17,5 +20,7 @@
     "default_icon" : "extension_icon.png",
     "default_popup":"popup.html"
   },
+  "author": "Satyam Mishra",
+  "short_name": "Query Strings for BBB",
   "permissions": ["storage", "activeTab"]
 }
