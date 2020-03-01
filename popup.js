@@ -12,6 +12,7 @@ if( isAccessDenied.length &&
   const newURL = addParameterToURL("web3feo");
   window.location.replace(newURL);
 }
+
 const validator = {
   set: function(target, key, value) {
       if(target[key] === value){
@@ -110,7 +111,7 @@ function storeQueryParamsinStorage(key,val,checked) {
         store[key] = {value:val, checked:checked};
       });
     } else {
-      chrome.storage.sync.set({ "queryParams": {[key]: val}}, function() {
+      chrome.storage.sync.set({ "queryParams": {[key]: {value:val, checked:checked}}}, function() {
         store[key] = {value:val, checked:checked};
       });
     }

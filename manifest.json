@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Query-String-BBB",
-  "description": "Append Query Parameters in URL",
-  "version":"1.0.0",
+  "name": "QueryRider-BBB",
+  "description": "Append/Modify Query Parameters in URL",
+  "version":"1.0.1",
   "default_locale": "en",
   "content_scripts" : [
     {

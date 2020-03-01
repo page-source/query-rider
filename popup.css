@@ -1,0 +1,60 @@
+body {
+  width: 400px;
+  border: 2px solid grey;
+  margin: 0;
+}
+.queryRiderHeading {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 0.4rem;
+  text-decoration: underline;
+}
+ul#paramList {
+  list-style-type:none;
+  padding: 15px;
+  width:370px;
+}
+#addQueryParamSection {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+#addNewQueryStringHeading {
+  margin-bottom: 8px;
+}
+#addNewButton {
+  display: block;
+  margin: 10px auto;
+}
+ul li {
+  height:30px;
+  font-size: 14px;
+}
+.line-item {
+  width: 25px;
+  height: 20px;
+  display: inline-block;
+  padding:7px 5px 4px 5px;
+}
+.line-item-text {
+  display: inline-block;
+  width: 100px;
+  height: 18px;
+  margin: 0;
+  padding: 7px 6px 6px 6px;
+}
+.inline-item {
+  margin-bottom:5px
+}
+.border1 {
+  border: 1px solid grey;
+}
+.borderRight1 {
+  border-right: 1px solid grey;
+}
+.reloadBtn {
+  width: 60px;
+}
+.checkbox {
+  vertical-align: middle;
+  margin-top:0;
+}
