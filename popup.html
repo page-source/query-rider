@@ -13,11 +13,14 @@
   <script language='javascript' src='popup.js'></script>
 </head>
 <body>
-    <h4>Append Query Strings</h4>
-    <p class="addNewQueryString">Add New Query String</p>
+  <h2 class="queryRiderHeading">QueryRider</h2>
+  <div id="addQueryParamSection">
+    <h3 id="addNewQueryStringHeading">Add New Query String</h3>
     <input type="text" id="newQueryStringKey" name="newQueryStringKey" placeholder="New Param">
     <input type="text" id="newQueryStringValue" name="newQueryStringValue" placeholder="Value">
     <button id="addNewButton">Add Param</button>
+  </div>
+
   <ul id="paramList"></ul>
   </body>
 </html>
