@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "Query-String",
-  "description": "Append Query Parameters in URL",
+  "name": "Query-Rider",
+  "description": "This extension allows you to append and modify Query Parameters in URL",
   "version":"1.0.0",
+  "default_locale": "en",
   "content_scripts" : [
     {
       "matches": [
-        "*://*.bbbycaapp.com/*",
-        "*://*.bbbabyapp.com/*",
-        "*://*.bbbyapp.com/*"
+        "http://*/*" ,
+        "https://*/*"
       ],
       "js": ["popup.js"],
       "run_at": "document_idle"
@@ -19,5 +19,7 @@
     "default_icon" : "extension_icon.png",
     "default_popup":"popup.html"
   },
-  "permissions": ["storage", "activeTab"]
+  "permissions": ["storage", "activeTab"],
+  "author": "Satyam Mishra",
+  "short_name": "Append/Modify Query Params in URL"
 }

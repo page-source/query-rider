@@ -38,7 +38,8 @@ ul li {
 .line-item-text {
   display: inline-block;
   width: 65px;
-  height: 18px;margin: 0;
+  height: 18px;
+  margin: 0;
   padding: 7px 6px 6px 6px;
 }
 .inline-item {
