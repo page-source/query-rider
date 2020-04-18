@@ -134,7 +134,9 @@ function addNewParamstoDOM(queryParams) {
         </span>
       </li>`;
     })
-    document.getElementById("paramList").innerHTML = domContent;
+    if(document.getElementById("paramList")) {
+      document.getElementById("paramList").innerHTML = domContent;
+    }
 }
 
 function handleCheckboxSelection(checkbox) {

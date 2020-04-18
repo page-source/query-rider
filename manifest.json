@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "QueryRider-BBB",
-  "description": "Append/Modify Query Parameters in URL",
-  "version":"1.0.1",
+  "name": "Query-Rider",
+  "description": "This extension allows you to append and modify Query Parameters in URL",
+  "version":"1.0.3",
   "default_locale": "en",
   "content_scripts" : [
     {
@@ -20,7 +20,7 @@
     "default_icon" : "extension_icon.png",
     "default_popup":"popup.html"
   },
+  "permissions": ["storage", "activeTab"],
   "author": "Satyam Mishra",
-  "short_name": "Query Strings for BBB",
-  "permissions": ["storage", "activeTab"]
+  "short_name": "Append/Modify Query Params in URL"
 }
