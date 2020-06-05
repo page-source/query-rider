@@ -1,5 +1,5 @@
 body {
-  width: 400px;
+  width: 445px;
   border: 2px solid grey;
   margin: 0;
 }
@@ -17,6 +17,10 @@ ul#paramList {
 #addQueryParamSection {
   padding-left: 25px;
   padding-right: 25px;
+}
+#addQueryParamSection input {
+  padding: 4px;
+  margin-right: 10px;
 }
 #addNewQueryStringHeading {
   margin-bottom: 8px;

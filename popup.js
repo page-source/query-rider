@@ -127,7 +127,7 @@ function addNewParamstoDOM(queryParams) {
         <p class='line-item-text borderRight1'> ${key}</p>
         <p class="line-item-text borderRight1">${queryParams[key].value}</p>
         <span class='line-item borderRight1'>
-          <input class='checkbox' type='checkbox' data-value=${key} ${queryParams[key].checked ? "checked" : ''}>
+          <input class='checkbox' type='checkbox' data-value=${key} ${queryParams[key].checked ? "checked" : ''}/>
         </span
         <span class='line-item'>
           <button class='reloadBtn'>Reload</button>
