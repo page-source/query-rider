@@ -1,64 +1,99 @@
 body {
   width: 445px;
-  border: 2px solid grey;
+  border: 2px solid black;
   margin: 0;
 }
 .queryRiderHeading {
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 0.4rem;
   text-decoration: underline;
 }
 ul#paramList {
   list-style-type:none;
-  padding: 15px;
-  width:370px;
+  padding: 10px 15px 2px 15px;
+  width:405px;
 }
 #addQueryParamSection {
   padding-left: 25px;
   padding-right: 25px;
 }
 #addQueryParamSection input {
-  padding: 4px;
-  margin-right: 10px;
+  padding: 8px;
 }
 #addNewQueryStringHeading {
   margin-bottom: 8px;
 }
+#newQueryStringValue {
+  float: right;
+}
 #addNewButton {
   display: block;
   margin: 10px auto;
+  width: inherit;
+  height: 25px;
+  color: white;
+  background: darkolivegreen;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
 ul li {
-  height:30px;
+  /* height:30px; */
   font-size: 14px;
-}
-.line-item {
-  width: 25px;
-  height: 20px;
-  display: inline-block;
-  padding:7px 5px 4px 5px;
 }
 .line-item-text {
   display: inline-block;
-  width: 100px;
-  height: 18px;
+  width: 180px;
+  vertical-align: top;
   margin: 0;
-  padding: 7px 6px 6px 6px;
+  padding: 6px;
+  overflow: overlay;
+}
+.line-item {
+  display: flex;
+  padding: 6px 4px 4px 0px;
+  align-items: center;
 }
 .inline-item {
-  margin-bottom:5px
+  margin-bottom: 10px;
+  display: flex;
 }
 .border1 {
-  border: 1px solid grey;
+  border: 1px solid black;
 }
 .borderRight1 {
-  border-right: 1px solid grey;
+  border-right: 1px solid black;
 }
 .reloadBtn {
-  width: 60px;
+  width: inherit;
+  height: 40px;
+  color: white;
+  background: darkblue;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.reloadBtn:focus {
+  outline: none;
 }
 .checkbox {
   vertical-align: middle;
   margin-top:0;
+  width: 20px;
+  height: 20px;
+}
+.deleteBtn {
+  text-align: end;
+  background-color: red;
+  color: white;
+  width: 24px;
+  font-size: 14px;
+  padding-left: 4px;
+  height: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }

@@ -4,15 +4,6 @@ function addParameterToURL(param) {
   return _url;
 }
 
-let isAccessDenied = document && document.querySelectorAll('body h1');
-if( isAccessDenied.length &&
-    isAccessDenied[0] &&
-    isAccessDenied[0].innerHTML === "Access Denied" &&
-    !location.href.includes("web3feo")) {
-  const newURL = addParameterToURL("web3feo");
-  window.location.replace(newURL);
-}
-
 const validator = {
   set: function(target, key, value) {
       if(target[key] === value){
@@ -24,19 +15,22 @@ const validator = {
       return true;
   }
 };
+
 let paramsStoredinStorage = {};
+let deletedParams =  [];
 const store = new Proxy(paramsStoredinStorage, validator);
-chrome.storage.sync.get(["queryParams"], function(items) {
-  paramsStoredinStorage = items.queryParams || {};
+chrome.storage.sync.get(["QueryRiderQueryParams"], function(items) {
+  paramsStoredinStorage = items.QueryRiderQueryParams || {};
 
   if(Object.keys(paramsStoredinStorage).length>0) {
    addNewParamstoDOM(paramsStoredinStorage);
   }
 });
 
-/** This Function picks the query params from the Chrome Storage, appends them in the current URL and reloads the page
+/** This Function picks the query params from the Chrome Storage,
+ * appends them in the current URL and reloads the page
 **/
-function reloadPage(){
+function reloadPage() {
   if(chrome.storage == null || chrome.storage == 'undefined') {
     console.log('storage doesnt exist')
   }
@@ -55,6 +49,9 @@ function reloadPage(){
       }
       modifiedURLwithQueryString = addQueryStringsToURL(queryParams[i][0], queryParams[i][1].value ,modifiedURLwithQueryString);
     }
+    for (const item of deletedParams) {
+      modifiedURLwithQueryString = removeURLParameter(modifiedURLwithQueryString ,item);
+    }
     if(modifiedURLwithQueryString.slice(-1) === "?") {
       modifiedURLwithQueryString = modifiedURLwithQueryString.replace(/\?$/, '');
     }
@@ -64,32 +61,47 @@ function reloadPage(){
   });
 }
 
-/*This Function adds query params to the URL passed*/
+/* This Function adds query params to the URL passed */
 function addQueryStringsToURL(param, value, URL) {
   let _url = URL;
   _url += (_url.split('?')[1] ? '&':'?') + param;
   return _url+"="+value;
 }
 
-/*Function which runs on opening of extension*/
+function removeParamFromStorage(e) {
+  const paramRemoved = e.getAttribute("data-value");
+  deletedParams.push(paramRemoved);
+  chrome.storage.sync.get(items => {
+    delete items.QueryRiderQueryParams[paramRemoved];
+    paramsStoredinStorage = items.QueryRiderQueryParams || {};
+    chrome.storage.sync.set({ QueryRiderQueryParams: items.QueryRiderQueryParams}, function() {
+      console.log("items set");
+    });;
+    addNewParamstoDOM(items.QueryRiderQueryParams);
+  })
+}
+
+/* Function which runs after Extension finishes loading */
 
 document.addEventListener('DOMContentLoaded', function () {
-  const reloadBtns = document.getElementsByClassName('reloadBtn');
-  for (let i = 0; i < reloadBtns.length; i++) {
-    reloadBtns[i].addEventListener('click', reloadPage)
-  }
   const addNewButton = document.getElementById("addNewButton");
   addNewButton.addEventListener('click', addNewQueryParam);
 
-  document.getElementById("paramList").addEventListener("click", function(e) {
-    if(e.target && e.target.nodeName == "BUTTON") {
+  document.getElementsByTagName('body')[0].addEventListener("click", function(e) {
+    if(e.target && e.target.className == "reloadBtn") {
       reloadPage();
     }
     if(e.target.type === "checkbox" && e.target.nodeName == "INPUT"){
       handleCheckboxSelection(e.target);
     }
+    if(e.target && e.target.className == "deleteBtn"){
+      removeParamFromStorage(e.target);
+    }
   });
 });
+
+/* Function which adds retrieves param and value from inputs and sends those to storeQueryParamsinStorage func
+*/
 
 function addNewQueryParam() {
   const newQueryParamKey = document.getElementById("newQueryStringKey").value;
@@ -99,19 +111,19 @@ function addNewQueryParam() {
   }
 }
 
-/*Function which stores query params in Chrome Storage when user adds a new param */
+/* Function which stores query params in Chrome Storage when user adds a new param */
 
 function storeQueryParamsinStorage(key,val,checked) {
-  chrome.storage.sync.get(["queryParams"], (items) => {
-    if(Object.keys(items).length > 0 && Object.keys(items.queryParams).length > 0 ) {
-      const existingQueryParams = items.queryParams;
+  chrome.storage.sync.get(["QueryRiderQueryParams"], (items) => {
+    if(Object.keys(items).length > 0 && Object.keys(items.QueryRiderQueryParams).length > 0 ) {
+      const existingQueryParams = items.QueryRiderQueryParams;
       existingQueryParams[key] = {value:val, checked:checked};
-      chrome.storage.sync.set({ "queryParams": existingQueryParams}, function() {
+      chrome.storage.sync.set({ "QueryRiderQueryParams": existingQueryParams}, function() {
         paramsStoredinStorage[key] = {value:val, checked:checked};
         store[key] = {value:val, checked:checked};
       });
     } else {
-      chrome.storage.sync.set({ "queryParams": {[key]: {value:val, checked:checked}}}, function() {
+      chrome.storage.sync.set({ "QueryRiderQueryParams": {[key]: {value:val, checked:checked}}}, function() {
         store[key] = {value:val, checked:checked};
       });
     }
@@ -119,19 +131,19 @@ function storeQueryParamsinStorage(key,val,checked) {
 
 }
 
+/* This Function adds new params to the list shown in second half of the screen */
+
 function addNewParamstoDOM(queryParams) {
   let domContent = "";
-    Object.keys(queryParams).forEach((key) => {
+    Object.keys(queryParams).map((key) => {
       domContent +=
       `<li class='inline-item border1'>
-        <p class='line-item-text borderRight1'> ${key}</p>
+        <p class='line-item-text borderRight1'>${key}</p>
         <p class="line-item-text borderRight1">${queryParams[key].value}</p>
-        <span class='line-item borderRight1'>
-          <input class='checkbox' type='checkbox' data-value=${key} ${queryParams[key].checked ? "checked" : ''}/>
-        </span
         <span class='line-item'>
-          <button class='reloadBtn'>Reload</button>
+          <input  ${queryParams[key].checked ? "checked" : ''} class='checkbox' type='checkbox' data-value="${key}"/>
         </span>
+        <button class="deleteBtn" data-value="${key}">X</button>
       </li>`;
     })
     if(document.getElementById("paramList")) {
@@ -139,6 +151,7 @@ function addNewParamstoDOM(queryParams) {
     }
 }
 
+/* Handle Checkbox Selection */
 function handleCheckboxSelection(checkbox) {
    const paramModified = checkbox.getAttribute("data-value");
    const paramValuesInStorage = paramsStoredinStorage[paramModified];
@@ -171,3 +184,13 @@ function removeURLParameter(url, parameter) {
   }
 }
 
+/* Function for a custom paramter web3feo - written for testing purposes */
+
+let isAccessDenied = document && document.querySelectorAll('body h1');
+if( isAccessDenied.length &&
+    isAccessDenied[0] &&
+    isAccessDenied[0].innerHTML === "Access Denied" &&
+    !location.href.includes("web3feo")) {
+  const newURL = addParameterToURL("web3feo");
+  window.location.replace(newURL);
+}
