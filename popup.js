@@ -32,14 +32,20 @@ chrome.storage.sync.get(["QueryRiderQueryParams"], function(items) {
 **/
 function reloadPage() {
   if(chrome.storage == null || chrome.storage == 'undefined') {
-    console.log('storage doesnt exist')
+    alert("your browser doesn't support this extension");
   }
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     const currentURL = tabs[0].url;
     let modifiedURLwithQueryString = currentURL;
     const queryParams = Object.entries(paramsStoredinStorage);
     for (let i = 0; i < queryParams.length; i++) {
-      if(modifiedURLwithQueryString.includes(`${queryParams[i][0]}=${queryParams[i][1].value}`)){
+      const url = new URL(modifiedURLwithQueryString);
+      const queryParam = url.searchParams.get(`${queryParams[i][0]}`);
+      if(queryParam !== queryParams[i][1].value) {
+        modifiedURLwithQueryString = removeURLParameter(modifiedURLwithQueryString , queryParams[i][0]);
+        modifiedURLwithQueryString = addQueryStringsToURL(queryParams[i][0], queryParams[i][1].value ,modifiedURLwithQueryString);
+      }
+      if(modifiedURLwithQueryString.includes(`?${queryParams[i][0]}=`) || modifiedURLwithQueryString.includes(`&${queryParams[i][0]}=`)){
         if(!queryParams[i][1].checked) {
           modifiedURLwithQueryString = removeURLParameter(modifiedURLwithQueryString , queryParams[i][0]);
         }
@@ -52,6 +58,7 @@ function reloadPage() {
     for (const item of deletedParams) {
       modifiedURLwithQueryString = removeURLParameter(modifiedURLwithQueryString ,item);
     }
+    deletedParams = [];
     if(modifiedURLwithQueryString.slice(-1) === "?") {
       modifiedURLwithQueryString = modifiedURLwithQueryString.replace(/\?$/, '');
     }
@@ -107,6 +114,9 @@ function addNewQueryParam() {
   const newQueryParamKey = document.getElementById("newQueryStringKey").value;
   const newQueryParamVal = document.getElementById("newQueryStringValue").value;
   if(newQueryParamKey !== "" && newQueryParamVal !== "") {
+    if(deletedParams.indexOf(newQueryParamKey) !== -1) {
+      deletedParams.splice(deletedParams.indexOf(newQueryParamKey), 1);
+    }
     storeQueryParamsinStorage(newQueryParamKey,newQueryParamVal, true);
   }
 }
