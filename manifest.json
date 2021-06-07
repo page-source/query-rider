@@ -1,26 +1,24 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Query-Rider",
+  "author": "Satyam Mishra",
   "description": "This extension allows you to append and modify Query Parameters in URL",
-  "version":"1.0.6",
+  "version": "1.1.0",
+  "version_name": "mv3-beta",
   "default_locale": "en",
-  "content_scripts" : [
+  "content_scripts": [
     {
-      "matches": [
-        "*://*.bbbycaapp.com/*",
-        "*://*.bbbabyapp.com/*",
-        "*://*.bbbyapp.com/*"
-      ],
       "js": ["popup.js"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "matches": ["<all_urls>"]
     }
   ],
   "icons": { "128": "extension_icon.png" },
-  "browser_action": {
-    "default_icon" : "extension_icon.png",
-    "default_popup":"popup.html"
+  "action": {
+    "default_icon": "extension_icon.png",
+    "default_popup": "popup.html"
   },
   "permissions": ["storage", "activeTab"],
-  "author": "Satyam Mishra",
+  "host_permissions": ["<all_urls>"],
   "short_name": "Append/Modify Query Params in URL"
 }
